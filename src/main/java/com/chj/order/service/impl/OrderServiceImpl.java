@@ -22,4 +22,11 @@ public class OrderServiceImpl implements OrderService {
         OrderE entity = orderMapper.toEntity(dto);
         return orderRepository.save(entity);
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public OrderDTO findById(Long id){
+        OrderE entity = orderRepository.findById(id).orElse(new OrderE());
+        return orderMapper.toDTO(entity);
+    }
 }
